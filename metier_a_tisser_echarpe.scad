@@ -1,7 +1,7 @@
 // Nombre d'intervale
-nb_intervale=2;
+nb_intervale=10;
 larg_ext_min=30;
-mobile="trou";//["trou","picot"]
+mobile="picots_seuls";//["trou","picot","picots_seuls"]
 
 R=50; 
 
@@ -46,14 +46,16 @@ module intervale_trou(){
 
 // Intervale avec picots
 module intervale_picot(){
-    difference(){
-		cube([larg_ext_min,larg_intervale,epaisseur]);
-		translate([long_ext_min/2,-1,-1]) cube([larg_int_min,12,epaisseur+2]);
+    union(){
+        difference(){
+            cube([larg_ext_min,larg_intervale,epaisseur]);
+            translate([long_ext_min/2,-1,-1]) cube([larg_int_min,12,epaisseur+2]);
+        }
+        translate([2.5,5,2]) cylinder(14,r=2,$fn=R);
+        translate([2.5,5,16]) sphere(r=2,$fn=R);
+        mirror([1,0,0]) translate([-larg_ext_min+2.5,5,2]) cylinder(14,r=2,$fn=R);
+        mirror([1,0,0]) translate([-larg_ext_min+2.5,5,16]) sphere(r=2,$fn=R);
     }
-    translate([2.5,5,2]) cylinder(14,r=2,$fn=R);
-    translate([2.5,5,16]) sphere(r=2,$fn=R);
-    mirror([1,0,0]) translate([-larg_ext_min+2.5,5,2]) cylinder(14,r=2,$fn=R);
-    mirror([1,0,0]) translate([-larg_ext_min+2.5,5,16]) sphere(r=2,$fn=R);
 }
 // Picots
 module picot(){
@@ -68,18 +70,24 @@ if(mobile=="trou"){
     mirror([0,1,0]) translate([0,-long_ext_min-larg_intervale*(nb_intervale+1),0]) bout_trou();
     for (i=[1:1:nb_intervale+1]){
         translate([larg_ext_min+10,long_ext_min*i,0]) picot();
-                translate([-larg_ext_min,long_ext_min*i,0]) picot();
+        translate([-larg_ext_min,long_ext_min*i,0]) picot();
 
     }
 }
 
 if(mobile=="picot"){
-    for (i=[1:1:nb_intervale]) {
+    for (i=[1:1:nb_intervale]){
         translate([0,long_ext_min*i,0]) intervale_picot();
     }
     bout_picot();
     mirror([0,1,0]) translate([0,-long_ext_min-larg_intervale*(nb_intervale+1),0]) bout_picot();
 }
 
+if(mobile=="picots_seuls"){
+    for (i=[1:1:nb_intervale]){
+        translate([0,long_ext_min*i,0]) picot();
+        mirror([1,0,0]) translate([10,long_ext_min*i,0]) picot();
+    }
+}
 
 //picot();
