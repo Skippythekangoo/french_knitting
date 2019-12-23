@@ -1,7 +1,8 @@
 // Nombre d'intervale
 nb_intervale=10;
 larg_ext_min=30;
-mobile="picots_seuls";//["trou","picot","picots_seuls"]
+mobile="picot";//["trou","picot","picots_seuls","picot_seul"]
+tete="sphere";//["ronde',"sphere","plate"]
 
 R=50; 
 
@@ -60,7 +61,12 @@ module intervale_picot(){
 // Picots
 module picot(){
     rotate([0,90,0]) cylinder(14,r=2,$fn=R);
-    rotate([0,90,0]) translate([0,0,14]) sphere(r=2,$fn=R);
+    if(tete=="ronde"){
+        rotate([0,90,0]) translate([0,0,14]) sphere(r=2,$fn=R);
+    }
+    if(tete=="sphere"){
+        #rotate([0,90,0]) translate([0,0,14]) sphere(r=4,$fn=R);
+    }
 }
 if(mobile=="trou"){
     for (i=[1:1:nb_intervale]){
@@ -90,4 +96,6 @@ if(mobile=="picots_seuls"){
     }
 }
 
-//picot();
+if(mobile=="picot_seul"){
+    picot();
+}
