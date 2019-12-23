@@ -1,15 +1,15 @@
-// Nombre d'intervale
-nb_intervale=10;
+
+nb_intervale=10;// Nombre d'intervale
 larg_ext_min=30;
 mobile="picot";//["trou","picot","picots_seuls","picot_seul"]
-tete="sphere";//["ronde',"sphere","plate"]
+tete="plate";//["ronde","sphere","plate"]
 
 R=50; 
 
 // Cadre (ne pas changer les valeurs)
+
 long_ext_min=10;
 long_int_min=long_ext_min-10;
-//larg_ext_min=50;
 larg_int_min=larg_ext_min-10;
 epaisseur=5;
 larg_intervale=10;
@@ -29,9 +29,18 @@ module bout_picot(){
 		cube([larg_ext_min,long_ext_min,epaisseur], center=false);
 		translate([5,5,-1]) cube([larg_int_min,long_int_min+6,epaisseur+2], center=false);
         }
-    translate([larg_ext_min/2,2.5,2]) cylinder(14,r=2,$fn=R);
-    translate([larg_ext_min/2,2.5,16]) sphere(r=2,$fn=R);
-	
+        if(tete=="ronde"){
+            translate([larg_ext_min/2,2.5,2]) cylinder(14,r=2,$fn=R);
+            translate([larg_ext_min/2,2.5,16]) sphere(r=2,$fn=R);
+        }
+        if(tete=="sphere"){
+            translate([larg_ext_min/2,2.5,2]) cylinder(14,r=2,$fn=R);
+            translate([larg_ext_min/2,2.5,16]) sphere(r=4,$fn=R);
+        }
+        if(tete=="plate"){
+            translate([larg_ext_min/2,2.5,2]) cylinder(16,r=2,$fn=R);
+            //translate([larg_ext_min/2,2.5,16]) sphere(r=4,$fn=R);  
+        }        
 }
 
 
@@ -52,10 +61,24 @@ module intervale_picot(){
             cube([larg_ext_min,larg_intervale,epaisseur]);
             translate([long_ext_min/2,-1,-1]) cube([larg_int_min,12,epaisseur+2]);
         }
-        translate([2.5,5,2]) cylinder(14,r=2,$fn=R);
-        translate([2.5,5,16]) sphere(r=2,$fn=R);
-        mirror([1,0,0]) translate([-larg_ext_min+2.5,5,2]) cylinder(14,r=2,$fn=R);
-        mirror([1,0,0]) translate([-larg_ext_min+2.5,5,16]) sphere(r=2,$fn=R);
+        if(tete=="ronde"){
+            translate([2.5,5,2]) cylinder(14,r=2,$fn=R);
+            translate([2.5,5,16]) sphere(r=2,$fn=R);
+            mirror([1,0,0]) translate([-larg_ext_min+2.5,5,2]) cylinder(14,r=2,$fn=R);
+            mirror([1,0,0]) translate([-larg_ext_min+2.5,5,16]) sphere(r=2,$fn=R);
+        }
+        if(tete=="sphere"){
+            translate([2.5,5,2]) cylinder(14,r=2,$fn=R);
+            translate([2.5,5,16]) sphere(r=4,$fn=R);
+            mirror([1,0,0]) translate([-larg_ext_min+2.5,5,2]) cylinder(14,r=2,$fn=R);
+            mirror([1,0,0]) translate([-larg_ext_min+2.5,5,16]) sphere(r=4,$fn=R);
+        }
+        if(tete=="plate"){
+            translate([2.5,5,2]) cylinder(16,r=2,$fn=R);
+            //translate([2.5,5,16]) sphere(r=4,$fn=R);
+            mirror([1,0,0]) translate([-larg_ext_min+2.5,5,2]) cylinder(16,r=2,$fn=R);
+            //mirror([1,0,0]) translate([-larg_ext_min+2.5,5,16]) sphere(r=4,$fn=R);
+        }
     }
 }
 // Picots
@@ -65,8 +88,8 @@ module picot(){
         rotate([0,90,0]) translate([0,0,14]) sphere(r=2,$fn=R);
     }
     if(tete=="sphere"){
-        #rotate([0,90,0]) translate([0,0,14]) sphere(r=4,$fn=R);
-    }
+        rotate([0,90,0]) translate([0,0,14]) sphere(r=4,$fn=R);
+        }
 }
 if(mobile=="trou"){
     for (i=[1:1:nb_intervale]){
