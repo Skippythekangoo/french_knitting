@@ -1,18 +1,25 @@
-
-nb_intervale=10;// Nombre d'intervale
+// Nombre d'intervale
+nb_intervale=10;
+// Largeur du tricotin
 larg_ext_min=30;
+// Style d'impression 
 mobile="picot";//["trou","picot","picots_seuls","picot_seul"]
-tete="plate";//["ronde","sphere","plate"]
+// Style de têtes
+tete="ronde";//["ronde","sphere","plate"]
 
 R=50; 
 
 // Cadre (ne pas changer les valeurs)
-
 long_ext_min=10;
+// Cadre (ne pas changer les valeurs)
 long_int_min=long_ext_min-10;
+// Cadre (ne pas changer les valeurs)
 larg_int_min=larg_ext_min-10;
+// Cadre (ne pas changer les valeurs)
 epaisseur=5;
+// Cadre (ne pas changer les valeurs)
 larg_intervale=10;
+// Cadre (ne pas changer les valeurs)
 
 
 // Extrémités en U
