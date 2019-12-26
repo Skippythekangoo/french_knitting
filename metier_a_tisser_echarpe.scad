@@ -1,3 +1,4 @@
+/* [Valeurs paramétrables] */
 // Nombre d'intervale
 nb_intervale=10;
 // Largeur du tricotin
@@ -6,20 +7,18 @@ larg_ext_min=30;
 mobile="picot";//["trou","picot","picots_seuls","picot_seul"]
 // Style de têtes
 tete="ronde";//["ronde","sphere","plate"]
-
+// Résolution des sphères et cylindres
 R=50; 
 
-// Cadre (ne pas changer les valeurs)
+/* [Ne pas changer les valeurs suivantes] */
+// Longueur des extrémités
 long_ext_min=10;
-// Cadre (ne pas changer les valeurs)
-long_int_min=long_ext_min-10;
-// Cadre (ne pas changer les valeurs)
-larg_int_min=larg_ext_min-10;
-// Cadre (ne pas changer les valeurs)
+// Epaisseur du cadre
 epaisseur=5;
-// Cadre (ne pas changer les valeurs)
+// Largeur des intervales
 larg_intervale=10;
-// Cadre (ne pas changer les valeurs)
+long_int_min=long_ext_min-10;
+larg_int_min=larg_ext_min-10;
 
 
 // Extrémités en U
@@ -27,7 +26,7 @@ module bout_trou(){
 	difference(){
 		cube([larg_ext_min,long_ext_min,epaisseur], center=false);
 		translate([5,5,-1]) cube([larg_int_min,long_int_min+6,epaisseur+2], center=false);
-		translate([larg_ext_min/2,2.5,2]) cylinder(4,r=2);
+		translate([larg_ext_min/2,2.5,2]) cylinder(4,r=2,$fn=R);
 	}
 }
 
@@ -40,11 +39,11 @@ module bout_picot(){
             translate([larg_ext_min/2,2.5,2]) cylinder(14,r=2,$fn=R);
             translate([larg_ext_min/2,2.5,16]) sphere(r=2,$fn=R);
         }
-        if(tete=="sphere"){
+        else if(tete=="sphere"){
             translate([larg_ext_min/2,2.5,2]) cylinder(14,r=2,$fn=R);
             translate([larg_ext_min/2,2.5,16]) sphere(r=4,$fn=R);
         }
-        if(tete=="plate"){
+        else if(tete=="plate"){
             translate([larg_ext_min/2,2.5,2]) cylinder(16,r=2,$fn=R);
             //translate([larg_ext_min/2,2.5,16]) sphere(r=4,$fn=R);  
         }        
@@ -74,13 +73,13 @@ module intervale_picot(){
             mirror([1,0,0]) translate([-larg_ext_min+2.5,5,2]) cylinder(14,r=2,$fn=R);
             mirror([1,0,0]) translate([-larg_ext_min+2.5,5,16]) sphere(r=2,$fn=R);
         }
-        if(tete=="sphere"){
+        else if(tete=="sphere"){
             translate([2.5,5,2]) cylinder(14,r=2,$fn=R);
             translate([2.5,5,16]) sphere(r=4,$fn=R);
             mirror([1,0,0]) translate([-larg_ext_min+2.5,5,2]) cylinder(14,r=2,$fn=R);
             mirror([1,0,0]) translate([-larg_ext_min+2.5,5,16]) sphere(r=4,$fn=R);
         }
-        if(tete=="plate"){
+        else if(tete=="plate"){
             translate([2.5,5,2]) cylinder(16,r=2,$fn=R);
             //translate([2.5,5,16]) sphere(r=4,$fn=R);
             mirror([1,0,0]) translate([-larg_ext_min+2.5,5,2]) cylinder(16,r=2,$fn=R);
@@ -94,7 +93,7 @@ module picot(){
     if(tete=="ronde"){
         rotate([0,90,0]) translate([0,0,14]) sphere(r=2,$fn=R);
     }
-    if(tete=="sphere"){
+    else if(tete=="sphere"){
         rotate([0,90,0]) translate([0,0,14]) sphere(r=4,$fn=R);
         }
 }
@@ -129,3 +128,5 @@ if(mobile=="picots_seuls"){
 if(mobile=="picot_seul"){
     picot();
 }
+
+//!bout_trou();
