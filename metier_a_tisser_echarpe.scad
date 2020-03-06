@@ -4,9 +4,9 @@ nb_intervale=10;
 // Largeur du tricotin
 larg_ext_min=30;
 // Style d'impression 
-mobile="picot";//["trou","picot","picots_seuls","picot_seul"]
+mobile="picot";//["cadre","picot","picot_seul"]
 // Style de têtes
-tete="ronde";//["ronde","sphere","plate"]
+tete="sphere";//["ronde","sphere","plate"]
 // Résolution des sphères et cylindres
 R=50; 
 
@@ -98,7 +98,7 @@ module picot(){
         }
 }
 
-if(mobile=="trou"){
+if(mobile=="cadre"){
     for (i=[1:1:nb_intervale]){
         translate([0,long_ext_min*i,0]) intervale_trou();
     }
