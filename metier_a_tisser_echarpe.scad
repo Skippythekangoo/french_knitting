@@ -22,7 +22,7 @@ larg_int_min=larg_ext_min-10;
 
 
 // Extrémités en U
-module bout_trou(){
+module bout_cadre(){
 	difference(){
 		cube([larg_ext_min,long_ext_min,epaisseur], center=false);
 		translate([5,5,-1]) cube([larg_int_min,long_int_min+6,epaisseur+2], center=false);
@@ -87,6 +87,7 @@ module intervale_picot(){
         }
     }
 }
+
 // Picots
 module picot(){
     rotate([0,90,0]) cylinder(14,r=2,$fn=R);
@@ -102,7 +103,7 @@ if(mobile=="cadre"){
     for (i=[1:1:nb_intervale]){
         translate([0,long_ext_min*i,0]) intervale_trou();
     }
-    bout_trou();
+    bout_cadre();
     mirror([0,1,0]) translate([0,-long_ext_min-larg_intervale*(nb_intervale+1),0]) bout_trou();
     for (i=[1:1:nb_intervale+1]){
 //        translate([larg_ext_min+10,long_ext_min*i,0]) picot();
@@ -130,4 +131,4 @@ if(mobile=="picot_seul"){
     picot();
 }
 
-//!bout_trou();
+!bout_cadre();
