@@ -10,7 +10,7 @@ tete="ronde";//["ronde","sphere","plate"]
 // Résolution des sphères et cylindres
 R=50; 
 
-/* [Ne pas changer les valeurs suivantes] */
+/* [Hidden] */
 // Longueur des extrémités
 long_ext_min=10;
 // Epaisseur du cadre
@@ -97,6 +97,7 @@ module picot(){
         rotate([0,90,0]) translate([0,0,14]) sphere(r=4,$fn=R);
         }
 }
+
 if(mobile=="trou"){
     for (i=[1:1:nb_intervale]){
         translate([0,long_ext_min*i,0]) intervale_trou();
@@ -104,8 +105,8 @@ if(mobile=="trou"){
     bout_trou();
     mirror([0,1,0]) translate([0,-long_ext_min-larg_intervale*(nb_intervale+1),0]) bout_trou();
     for (i=[1:1:nb_intervale+1]){
-        translate([larg_ext_min+10,long_ext_min*i,0]) picot();
-        translate([-larg_ext_min,long_ext_min*i,0]) picot();
+//        translate([larg_ext_min+10,long_ext_min*i,0]) picot();
+ //       translate([-larg_ext_min,long_ext_min*i,0]) picot();
 
     }
 }
