@@ -4,7 +4,7 @@ nb_intervale=10;
 // Largeur du tricotin
 larg_ext_min=30;
 // Style d'impression 
-mobile="picot";//["cadre","picot","picot_seul"]
+mobile="picot";//["cadre","picot","picot_seul","cadre_rond"]
 // Style de têtes
 tete="sphere";//["ronde","sphere","plate"]
 // Résolution des sphères et cylindres
@@ -29,6 +29,7 @@ module bout_cadre(){
 		translate([larg_ext_min/2,2.5,2]) cylinder(4,r=2,$fn=R);
 	}
 }
+
 
 module bout_picot(){
 	difference(){
@@ -131,4 +132,24 @@ if(mobile=="picot_seul"){
     picot();
 }
 
-!bout_cadre();
+//test pour arrondir les angles
+module bout_cadre_rond(){
+	difference(){
+		cube([larg_ext_min,long_ext_min,epaisseur], center=false);
+		translate([5,5,-1]) cube([larg_int_min,long_int_min+6,epaisseur+2], center=false);
+		translate([larg_ext_min/2,2.5,2]) cylinder(4,r=2,$fn=R);
+	}
+}
+
+if(mobile=="bout_cadre_rond"){
+    for (i=[1:1:nb_intervale]){
+        translate([0,long_ext_min*i,0]) intervale_trou();
+    }
+    bout_cadre_rond();
+    mirror([0,1,0]) translate([0,-long_ext_min-larg_intervale*(nb_intervale+1),0]) bout_cadre_rond();
+    for (i=[1:1:nb_intervale+1]){
+
+    }
+}
+
+bout_cadre_rond();
