@@ -1,0 +1,5 @@
+# Ignorer les fichiers *.gcode
+*.gcode
+
+# Ignorer les fichier *.json
+*.json
