@@ -117,8 +117,8 @@ if(mobile=="picot"){
     for (i=[1:1:nb_intervale]){
         translate([0,long_ext_min*i,0]) intervale_picot();
     }
-    bout_picot();
-    mirror([0,1,0]) translate([0,-long_ext_min-larg_intervale*(nb_intervale+1),0]) bout_picot();
+    bout_cadre_rond_picot();
+    mirror([0,1,0]) translate([0,-long_ext_min-larg_intervale*(nb_intervale+1),0]) bout_cadre_rond_picot();
 }
 
 if(mobile=="picots_seuls"){
@@ -132,7 +132,10 @@ if(mobile=="picot_seul"){
     picot();
 }
 
-//test pour arrondir les angles
+///////////////////////////////////
+// test pour arrondir les angles //
+///////////////////////////////////
+
 module bout_cadre_rond(){
 	difference(){
 		minkowski(){
@@ -163,3 +166,26 @@ if(mobile=="cadre_rond"){
 //		}
 //		translate([5,5,-1]) cube([larg_int_min,long_int_min+6,epaisseur+2], center=false);
 //		}
+
+
+module bout_cadre_rond_picot(){
+	difference(){
+		minkowski(){
+			translate([1,0,0]) cube([larg_ext_min-2,long_ext_min,epaisseur-0.5], center=false);
+			cylinder(r=1, h=0.5, $fn=R);
+		}
+		translate([5,5,-1]) cube([larg_int_min,long_int_min+6,epaisseur+2], center=false);
+        }
+        if(tete=="ronde"){
+            translate([larg_ext_min/2,2.5,2]) cylinder(14,r=2,$fn=R);
+            translate([larg_ext_min/2,2.5,16]) sphere(r=2,$fn=R);
+        }
+        else if(tete=="sphere"){
+            translate([larg_ext_min/2,2.5,2]) cylinder(14,r=2,$fn=R);
+            translate([larg_ext_min/2,2.5,16]) sphere(r=4,$fn=R);
+        }
+        else if(tete=="plate"){
+            translate([larg_ext_min/2,2.5,2]) cylinder(16,r=2,$fn=R);
+            //translate([larg_ext_min/2,2.5,16]) sphere(r=4,$fn=R);  
+        }        
+}
